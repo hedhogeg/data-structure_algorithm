@@ -6,8 +6,9 @@ class Node():
 
     def __str__(self):
         data = str(self.data)
-        next = str(self.next)
-        result = f'< data : {data}, next : {next} >'
+        next = 'exist' if self.next else None
+        prev = 'exist' if self.prev else None
+        result = f'< data : {data}, next : {next}, prev : {prev} >'
         
         return result
 
@@ -73,7 +74,7 @@ class DoublyLinkedList():
             raise IndexError
         
         current_node = self.head
-        self.length -= 1
+
         if index == 0: # 맨 앞 삭제 : head 변경 필요
             deleted = current_node
             if self.head.next == None: # 데이터가 하나일 때
@@ -82,22 +83,28 @@ class DoublyLinkedList():
             else:
                 self.head = self.head.next
                 self.head.prev = None
-            self.head = current_node.next
 
+            self.length -= 1
             return deleted
-        elif index == self.length-1:
+        elif index == self.length-1: # 맨 뒤 삭제 : tail 변경 필요
             deleted = self.tail
-            deleted.prev.next = None
-            self.tail = deleted.prev
+            if self.tail.prev == None: # 데이터가 하나일 때
+                self.head = None
+                self.tail = None
+            else:
+                deleted.prev.next = None
+                self.tail = deleted.prev
 
+            self.length -= 1
             return deleted
-        else:
+        else: # 이외 : 하나하나 참조해서 가서 삭제
             for i in range(index-1):
                 current_node = current_node.next
             deleted = current_node.next
             current_node.next = current_node.next.next
             current_node.next.prev = current_node
 
+            self.length -= 1
             return deleted
 
     # 6. 맨 끝 삭제

@@ -62,11 +62,11 @@ class LinkedList():
             raise IndexError
         
         current_node = self.head
-        self.length -= 1
         if index == 0: # 맨 앞 삭제 : head 변경 필요
             deleted = current_node
             self.head = current_node.next
 
+            self.length -= 1
             return deleted
         else:
             for i in range(index-1):
@@ -74,6 +74,7 @@ class LinkedList():
             deleted = current_node.next
             current_node.next = current_node.next.next
 
+            self.length -= 1
             return deleted
 
     # 6. 맨 끝 삭제
