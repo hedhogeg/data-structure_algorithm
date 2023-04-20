@@ -1,0 +1,15 @@
+from my_queue import Queue
+
+q = Queue()
+print('---------------')
+q.enqueue(1)
+q.enqueue(2)
+q.enqueue(3)
+print(q.front())
+print('------------------')
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())
+print(q.arr.length)
+print(f'isEmpty : {q.isEmpty()}')
